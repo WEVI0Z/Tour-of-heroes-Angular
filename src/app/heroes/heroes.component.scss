@@ -36,3 +36,42 @@
 
     background-color: #FBFBFB;
 }
+
+.heroes .selecred {
+    color: #369;
+
+    background-color: #FBFBFB;
+}
+
+.editor {
+    width: 300px;
+    min-height: 150px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    color: #FBFBFB;
+
+    background-color: #369;
+    border-radius: 10px;
+}
+
+.editor .name {
+    margin: 0;
+}
+
+.editor .badge {
+    font-size: 20px;
+}
+
+.editor input {
+    color: #FBFBFB; 
+    font-size: 15px;
+
+    background-color: #369;
+    border: none;
+    border-bottom: 2px solid #FBFBFB;
+}
