@@ -21,10 +21,22 @@ export class HeroDetailsComponent {
     const id = Number(this.route.snapshot.paramMap.get("id"));
     this.heroService.getHero(id).subscribe(hero => this.hero = hero);
   }
+
+  save() {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack());
+    }
+  }
+
+  delete(hero: Hero): void {
+    this.heroService.deleteHero(hero.id).subscribe(() => this.goBack());
+  }
   
   goBack(): void {
     this.location.back();
   }
+  
 
   constructor(
     private route: ActivatedRoute,
