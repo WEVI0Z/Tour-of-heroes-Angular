@@ -1,0 +1,8 @@
+<div *ngIf="hero" class="editor">
+    <h2 class="name">{{hero.name | uppercase}} Details</h2>
+    <div class="badge">id: {{hero.id}}</div>
+    <div class="name-changer">
+        <label for="hero-name">Hero name: </label>
+        <input id="heo-name" type="text" placeholder="name" [(ngModel)]="hero.name">
+    </div>
+</div>
