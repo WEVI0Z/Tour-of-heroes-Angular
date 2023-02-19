@@ -12,6 +12,10 @@ import { HeroDetailsComponent } from './hero-details/hero-details.component';
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { HeroEffects } from './hero.effects';
+import { heroReducer } from './hero.reducer';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
-    )
+    ),
+    StoreModule.forRoot({heroes: heroReducer}),
+    EffectsModule.forRoot([HeroEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

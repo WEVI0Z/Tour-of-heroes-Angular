@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Hero } from '../hero';
+import { add, get } from '../hero.actions';
 import { HeroService } from '../hero.service';
 import { MessagesService } from '../messages.service';
+import * as fromStore from '../hero.reducer'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-heroes',
@@ -9,7 +13,7 @@ import { MessagesService } from '../messages.service';
   styleUrls: ['./heroes.component.scss']
 })
 export class HeroesComponent {
-  heroes: Hero[] = [];
+  heroes!: Observable<Hero[]>;
   selectedHero?: Hero;
   
   ngOnInit(): void {
@@ -17,7 +21,8 @@ export class HeroesComponent {
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes)
+    this.heroes = this.store.select("heroes")
+    this.store.dispatch(get())
   }
 
   add(name: string): void {
@@ -25,11 +30,11 @@ export class HeroesComponent {
     
     if (!name) { return; }
 
-    this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
-      });
+    this.store.dispatch(add({ name } as Hero));
   }
 
-  constructor(private heroService: HeroService) {}
+  constructor(
+    private heroService: HeroService,
+    private store: Store<{heroes: Hero[]}>
+  ) {}
 }
