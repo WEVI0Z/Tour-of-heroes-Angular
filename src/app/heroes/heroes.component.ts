@@ -26,7 +26,6 @@ export class HeroesComponent {
   }
 
   constructor(
-    private store: Store<{heroes: Hero[]}>,
-    private route: ActivatedRoute
+    private store: Store<{heroes: Hero[]}>
   ) {}
 }

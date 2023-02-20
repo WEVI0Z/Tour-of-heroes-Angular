@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
-import { HeroService } from '../hero.service';
 import { Store } from '@ngrx/store';
 import { del, update } from '../hero.actions';
 
@@ -28,13 +26,11 @@ export class HeroDetailsComponent {
 
   save() {
     if (this.hero) {
-      console.log(this.hero)
       this.store.dispatch(update(this.hero));
     }
   }
 
   delete(hero: Hero): void {
-    // this.heroService.deleteHero(hero.id).subscribe(() => this.goBack());
     this.store.dispatch(del(hero));
     this.goBack();
   }
@@ -46,7 +42,6 @@ export class HeroDetailsComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private heroService: HeroService,
     private location: Location,
     private store: Store<{heroes: Hero[]}>
   ) {}

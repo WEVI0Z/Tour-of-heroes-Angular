@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-hero-search',
@@ -12,7 +11,6 @@ import { HeroService } from '../hero.service';
 
 export class HeroSearchComponent implements OnInit {
   heroes: Hero[] = [];
-  private searchTerms = new Subject<string>();
 
   constructor(
     private store: Store<{heroes: Hero[]}>

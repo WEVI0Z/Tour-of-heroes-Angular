@@ -32,14 +32,6 @@ export class HeroService {
       );
   }
 
-  getHero(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/${id}`;
-    return this.http.get<Hero>(url).pipe(
-      tap(_ => this.messageService.add(`fetched hero id=${id}`)),
-      catchError(this.handleError<Hero>(`getHero id=${id}`))
-    );
-  }
-
   updateHero(hero: Hero): Observable<Hero> {
     this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
       tap(_ => this.messageService.add(`updated hero id=${hero.id}`)),
@@ -66,18 +58,6 @@ export class HeroService {
 
     return new Observable(subsciber => subsciber.next(hero));
   }
-
-searchHeroes(term: string): Observable<Hero[]> {
-  if (!term.trim()) {
-    return of([]);
-  }
-  return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
-    tap(x => x.length ?
-       this.messageService.add(`found heroes matching "${term}"`) :
-       this.messageService.add(`no heroes matching "${term}"`)),
-    catchError(this.handleError<Hero[]>('searchHeroes', []))
-  );
-}
 
   constructor(
     private messageService: MessagesService,
