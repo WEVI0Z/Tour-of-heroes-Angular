@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Hero } from '../hero';
-import { add, get } from '../hero.actions';
+import { add } from '../hero.actions';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 

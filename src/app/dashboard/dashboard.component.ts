@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Hero } from '../hero';
 
 @Component({

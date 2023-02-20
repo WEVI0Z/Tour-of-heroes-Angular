@@ -39,13 +39,3 @@ export const delSuccess = createAction(
     "DELETE_SUCCESS",
     props<Hero>()
 )
-
-export const search = createAction(
-    "SEACRH",
-    props<{name: string}>()
-)
-
-export const searchSuccess = createAction(
-    "SEACRH_SUCCESS",
-    props<{heroes: Hero[]}>()
-)

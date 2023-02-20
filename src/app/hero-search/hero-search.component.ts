@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, debounceTime } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
@@ -19,11 +19,18 @@ export class HeroSearchComponent implements OnInit {
     ) {}
 
   search(term: string): void {
-    this.store.select("heroes").pipe(
-      debounceTime(300),
-    ).subscribe(heroes => {
-      this.heroes = heroes.filter(hero => hero.name.indexOf(term) !== -1);
-    });
+    term = term.trim().toLowerCase();
+
+    if(term) {
+      this.store.select("heroes").pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      ).subscribe(heroes => {
+        this.heroes = heroes.filter(hero => hero.name.toLowerCase().indexOf(term) !== -1);
+      });
+    } else {
+      this.heroes = []
+    }
   }
 
   ngOnInit(): void {
