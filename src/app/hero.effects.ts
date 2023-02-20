@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { exhaustMap, map, mergeMap, switchMap } from "rxjs/operators";
-import { add, addSuccess, get, getSuccess, update, updateSuccess } from "./hero.actions";
+import { map, mergeMap, switchMap } from "rxjs/operators";
+import { add, addSuccess, del, delSuccess, get, getSuccess, update, updateSuccess, search, searchSuccess } from "./hero.actions";
 import { HeroService } from "./hero.service";
 
 @Injectable()
@@ -17,7 +17,7 @@ export class HeroEffects {
 
     get$ = createEffect(() => 
         this.actions$.pipe(
-            ofType(add),
+            ofType(get),
             mergeMap(() => this.heroService.getHeroes().pipe(
                 map(heroes => getSuccess({heroes}))
             ))
@@ -27,8 +27,26 @@ export class HeroEffects {
     update$ = createEffect(() =>
         this.actions$.pipe(
             ofType(update),
-            switchMap((data) => this.heroService.updateHero(data).pipe(
+            switchMap((hero) => this.heroService.updateHero(hero).pipe(
                 map(hero => updateSuccess(hero))
+            ))
+        )
+    )
+
+    del$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(del),
+            switchMap((hero) => this.heroService.deleteHero(hero).pipe(
+                map(hero => delSuccess(hero))
+            ))
+        )
+    )
+
+    search$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(search),
+            switchMap((data) => this.heroService.searchHeroes(data.name).pipe(
+                map(heroes => searchSuccess({ heroes }))
             ))
         )
     )

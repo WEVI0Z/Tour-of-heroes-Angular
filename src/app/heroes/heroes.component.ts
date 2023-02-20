@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Hero } from '../hero';
 import { add, get } from '../hero.actions';
-import { HeroService } from '../hero.service';
-import { MessagesService } from '../messages.service';
-import * as fromStore from '../hero.reducer'
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-heroes',
@@ -14,15 +12,9 @@ import { Observable } from 'rxjs';
 })
 export class HeroesComponent {
   heroes!: Observable<Hero[]>;
-  selectedHero?: Hero;
   
   ngOnInit(): void {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroes = this.store.select("heroes")
-    this.store.dispatch(get())
+    this.heroes = this.store.select("heroes");
   }
 
   add(name: string): void {
@@ -34,7 +26,7 @@ export class HeroesComponent {
   }
 
   constructor(
-    private heroService: HeroService,
-    private store: Store<{heroes: Hero[]}>
+    private store: Store<{heroes: Hero[]}>,
+    private route: ActivatedRoute
   ) {}
 }

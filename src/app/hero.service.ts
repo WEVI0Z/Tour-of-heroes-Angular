@@ -56,13 +56,15 @@ export class HeroService {
     );
   }
 
-  deleteHero(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/${id}`;
+  deleteHero(hero: Hero): Observable<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
 
-    return this.http.delete<Hero>(url, this.httpOptions).pipe(
-      tap(_ => this.messageService.add(`deleted hero id=${id}`)),
+    this.http.delete<Hero>(url, this.httpOptions).pipe(
+      tap(_ => this.messageService.add(`deleted hero id=${hero.id}`)),
       catchError(this.handleError<Hero>('deleteHero'))
     );
+
+    return new Observable(subsciber => subsciber.next(hero));
   }
 
 searchHeroes(term: string): Observable<Hero[]> {

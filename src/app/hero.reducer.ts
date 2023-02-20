@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on, State } from "@ngrx/store";
 import { Hero } from "./hero";
-import { addSuccess, getSuccess, updateSuccess } from "./hero.actions";
+import { addSuccess, delSuccess, getSuccess, updateSuccess } from "./hero.actions";
 
 export const initialState: Hero[] = [
 ];
@@ -8,15 +8,16 @@ export const initialState: Hero[] = [
 export const heroReducer = createReducer(
     initialState,
     on(addSuccess, (state, hero) => [...state, hero]),
-    on(getSuccess, (state, data) => data.heroes),
+    on(getSuccess, (state, data) => {
+        return data.heroes
+    }),
     on(updateSuccess, (state, data) => {
-        const updatedHeroes = state.map(hero => {
+        return state.map(hero => {
             return data.id === hero.id ? data : hero
         })
-
-        console.log(data);
-
-        return updatedHeroes;
+    }),
+    on(delSuccess, (state, data) => {
+        return state.filter(hero => data.id !== hero.id)
     })
 )
 

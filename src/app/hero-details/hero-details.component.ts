@@ -1,12 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { HeroService } from '../hero.service';
-import { filter, find, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { update } from '../hero.actions';
+import { del, update } from '../hero.actions';
 
 @Component({
   selector: 'app-hero-details',
@@ -29,15 +28,15 @@ export class HeroDetailsComponent {
 
   save() {
     if (this.hero) {
-      // this.heroService.updateHero(this.hero)
-      //   .subscribe(() => this.goBack());
       console.log(this.hero)
       this.store.dispatch(update(this.hero));
     }
   }
 
   delete(hero: Hero): void {
-    this.heroService.deleteHero(hero.id).subscribe(() => this.goBack());
+    // this.heroService.deleteHero(hero.id).subscribe(() => this.goBack());
+    this.store.dispatch(del(hero));
+    this.goBack();
   }
   
   goBack(): void {

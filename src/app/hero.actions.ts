@@ -29,3 +29,23 @@ export const updateSuccess = createAction(
     "UPDATE_SUCCESS",
     props<Hero>()
 )
+
+export const del = createAction(
+    "DELETE",
+    props<Hero>()
+)
+
+export const delSuccess = createAction(
+    "DELETE_SUCCESS",
+    props<Hero>()
+)
+
+export const search = createAction(
+    "SEACRH",
+    props<{name: string}>()
+)
+
+export const searchSuccess = createAction(
+    "SEACRH_SUCCESS",
+    props<{heroes: Hero[]}>()
+)
